@@ -3,8 +3,8 @@ import axios from 'axios';
 /** Axios instance pointed at the Express API (proxied by Vite in dev). Attaches the JWT and
  *  unwraps the { success, data, meta } envelope so callers get plain data. */
 export const client = axios.create({ 
-  // baseURL: '/api' 
-  baseURL: 'https://amazingink1.onrender.com/api' ,
+  // baseURL: '/api' ,
+    baseURL: 'https://amazingink1.onrender.com/api' ,
     withCredentials: true,
 
 });
