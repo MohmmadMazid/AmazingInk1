@@ -15,23 +15,13 @@ export function createApp() {
   app.use(
     cors({
       // origin: env.corsOrigins,
-      // origin: "https://amzingink.netlify.app",
-      "origin": "*",
-      "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-      "preflightContinue": false,
-      "optionsSuccessStatus": 204
+      origin: "https://amzingink.netlify.app",
+        credentials: true,
+
     })
   );
   app.use(express.json({ limit: '5mb' }));
   if (env.nodeEnv !== 'test') app.use(morgan('dev'));
-  
-    // Root health check for Render
-  app.get('/', (req, res) => {
-    res.status(200).json({
-      message: "MCCMS backend is running successfully",
-      status: "OK"
-    });
-  });
   app.use('/api', api);
 
   app.use(notFound);
