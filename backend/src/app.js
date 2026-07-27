@@ -22,6 +22,10 @@ export function createApp() {
   );
   app.use(express.json({ limit: '5mb' }));
   if (env.nodeEnv !== 'test') app.use(morgan('dev'));
+
+  app.get('/', (req, res) => {
+  res.status(200).send('MCCMS Backend API is running!');
+});
   app.use('/api', api);
 
   app.use(notFound);
