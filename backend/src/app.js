@@ -11,7 +11,11 @@ export function createApp() {
   const app = express();
   app.use(helmet());
   app.use(securityHeaders);   // explicit baseline headers on every response
-  app.use(cors({ origin: env.corsOrigins, credentials: true }));
+  // app.use(cors({ origin: env.corsOrigins, credentials: true }));
+  app.use(cors({
+    origin: "https://amazing-ink1.vercel.app",
+    credentials: true,
+  }));
   app.use(express.json({ limit: '5mb' }));
   if (env.nodeEnv !== 'test') app.use(morgan('dev'));
 
