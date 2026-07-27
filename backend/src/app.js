@@ -26,6 +26,7 @@ export function createApp() {
   app.get('/', (req, res) => {
   res.status(200).send('MCCMS Backend API is running!');
 });
+
   app.use('/api', api);
 
   app.use(notFound);
