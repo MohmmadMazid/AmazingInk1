@@ -4,7 +4,7 @@ import axios from 'axios';
  *  unwraps the { success, data, meta } envelope so callers get plain data. */
 export const client = axios.create({ 
   // baseURL: '/api' ,
-    baseURL: 'https://amazingink1.onrender.com/api' ,
+    baseURL: 'https://amazingink1.onrender.com' ,
     withCredentials: true,
 
 });
