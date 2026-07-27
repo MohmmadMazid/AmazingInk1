@@ -1,0 +1,25 @@
+import { client, rawResponse } from '../../lib/api.js';
+
+export const securityApi = {
+  dashboard: () => client.get('/security/dashboard').then((r) => r.data.data),
+  events: (params) => rawResponse(client.get('/security/events', { params })),
+  sessions: () => client.get('/security/sessions').then((r) => r.data.data),
+  revokeSession: (id) => client.delete(`/security/sessions/${id}`).then((r) => r.data.data),
+  revokeAll: () => client.post('/security/sessions/revoke-all').then((r) => r.data.data),
+  loginHistory: (email) => client.get('/security/login-history', { params: { email } }).then((r) => r.data.data),
+  clearLockout: (email) => client.post('/security/clear-lockout', { email }).then((r) => r.data.data),
+  ipAllowlist: () => client.get('/security/ip-allowlist').then((r) => r.data.data),
+  addIp: (body) => client.post('/security/ip-allowlist', body).then((r) => r.data.data),
+  removeIp: (id) => client.delete(`/security/ip-allowlist/${id}`).then((r) => r.data.data),
+  retention: () => client.get('/security/retention').then((r) => r.data.data),
+  upsertRetention: (body) => client.put('/security/retention', body).then((r) => r.data.data),
+  runRetention: () => client.post('/security/retention/run').then((r) => r.data.data),
+  gdpr: () => client.get('/security/gdpr').then((r) => r.data.data),
+  createGdpr: (body) => client.post('/security/gdpr', body).then((r) => r.data.data),
+  processAccess: (id) => client.post(`/security/gdpr/${id}/access`).then((r) => r.data.data),
+  processErasure: (id, dryRun = true) => client.post(`/security/gdpr/${id}/erasure?dryRun=${dryRun}`).then((r) => r.data.data),
+  controls: (framework) => client.get('/security/compliance/controls', { params: { framework } }).then((r) => r.data.data),
+  seedFramework: (framework) => client.post('/security/compliance/seed', { framework }).then((r) => r.data.data),
+  updateControl: (id, body) => client.put(`/security/compliance/controls/${id}`, body).then((r) => r.data.data),
+  report: (framework) => client.get(`/security/compliance/${framework}`).then((r) => r.data.data),
+};

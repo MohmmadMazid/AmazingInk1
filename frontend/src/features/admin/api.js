@@ -1,0 +1,25 @@
+import { client, rawResponse } from '../../lib/api.js';
+
+export const adminApi = {
+  currencies: () => client.get('/settings/currencies').then((r) => r.data.data),
+  currency: () => client.get('/settings/currency').then((r) => r.data.data),
+  setCurrency: (currency) => client.put('/settings/currency', { currency }).then((r) => r.data.data),
+  settings: (namespace) => client.get('/admin/settings', { params: { namespace } }).then((r) => r.data.data),
+  setSetting: (body) => client.put('/admin/settings', body).then((r) => r.data.data),
+  audit: (params) => rawResponse(client.get('/admin/audit', { params })),
+  credentials: () => client.get('/admin/credentials').then((r) => r.data.data),
+  createCredential: (body) => client.post('/admin/credentials', body).then((r) => r.data.data),
+  revokeCredential: (id) => client.delete(`/admin/credentials/${id}`).then((r) => r.data.data),
+  webhooks: () => client.get('/admin/webhooks').then((r) => r.data.data),
+  createWebhook: (body) => client.post('/admin/webhooks', body).then((r) => r.data.data),
+  removeWebhook: (id) => client.delete(`/admin/webhooks/${id}`).then((r) => r.data.data),
+  testWebhook: (event) => client.post('/admin/webhooks/test', { event }).then((r) => r.data.data),
+  flags: () => client.get('/admin/flags').then((r) => r.data.data),
+  upsertFlag: (body) => client.put('/admin/flags', body).then((r) => r.data.data),
+  evaluateFlags: () => client.get('/admin/flags/evaluate').then((r) => r.data.data),
+  roles: () => client.get('/admin/roles').then((r) => r.data.data),
+  permissions: () => client.get('/admin/permissions').then((r) => r.data.data),
+  upsertRole: (body) => client.put('/admin/roles', body).then((r) => r.data.data),
+  users: () => client.get('/admin/users').then((r) => r.data.data),
+  checkPassword: (password) => client.post('/admin/security/check-password', { password }).then((r) => r.data.data),
+};
